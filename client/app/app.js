@@ -97,6 +97,8 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
 angular.module('mainCtrl', ['theApp'])
 .controller('mainCtrl', function($scope,$window,$location) {
 
+// Docs at http://simpleweatherjs.com
+
   $scope.logout = function() {
     $window.localStorage.removeItem('token');
     $window.sessionStorage.removeItem('token');
