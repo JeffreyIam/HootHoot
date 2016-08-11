@@ -10,16 +10,9 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
 
       $scope.messageText = '';
 
-    // if ("geolocation" in navigator) {
-    //   $('.js-geolocation').show();
-    // } else {
-    //   $('.js-geolocation').hide();
-    // }
-
-  /* Where in the world are you? */
-
+      //load weather using your lat/lng coordinates
       navigator.geolocation.getCurrentPosition(function(position) {
-        $scope.loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
+        $scope.loadWeather(position.coords.latitude+','+position.coords.longitude);
       });
 
 
@@ -43,7 +36,6 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
 
         if($scope.messageText.match(/\/weather/)) {
           $scope.messageText = document.getElementById("temp").innerHTML.split('</i> ')[1];
-          // document.getElementById("weather").value
         }
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
