@@ -46,6 +46,8 @@ exports.newConnection =  function (socket) {
       })
       .then(function (message) {
 
+        //slight fix to make "Get a ride" not display whenever any location displays during chat
+
         // request.get({ url: 'https://api.wit.ai/message', qs: { v: '20160810', q: message.body },
         //   auth: { bearer: accessToken } }, function (err, resp) {
         //     var entities = JSON.parse(resp.body).entities;
@@ -66,9 +68,9 @@ exports.newConnection =  function (socket) {
                 }
               }
             });
-      //     }
+          // }
       //   );
-      // });
+      });
   // });
 
   socket.on('create group', function (group) {
