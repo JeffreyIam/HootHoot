@@ -1,11 +1,15 @@
 <div class="login">
-  <img src="../app/images/blueOwl.jpg">
-  <h1> Welcome to Hoot </h1>
+  <h1 class="login-title"> Welcome to Hoot </h1>
   <form>
-    <input ng-model="username" placeholder="username">
+    <div class="mui-textfield">
+      <input ng-model="username" placeholder="Email" >
+    </div>
     <br>
-    <input type="password" ng-model="password" placeholder="password">
-    <button ng-click="login(username, password)">Sign In</button>
+    <div class="mui-textfield">
+      <input type="password" ng-model="password" placeholder="Password">
+    </div>
+    <br>
+    <button class="mui-btn mui-btn--raised" ng-click="login(username, password)">Sign In</button>
     <br>
     Sign in with Google or Facebook
     <a href="#" ng-click="auth.signin()" class="btn btn-primary btn-lg btn-block">Sign In</a>

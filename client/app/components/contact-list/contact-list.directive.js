@@ -1,31 +1,55 @@
-angular.module('contactlistdirective', ['theApp']).directive('contactlist', function() {
-  return {
-    restrict: "E",
-    templateUrl: 'app/components/contact-list/contact-list.html',
-    scope: {
+(function() {
+  'use strict';
 
-    },
-    controller: function($rootScope, $scope, ContactService, Globals) {
+  angular
+  .module('contactlistdirective', ['theApp', 'ui.bootstrap'])
+  .directive('contactlist', contactlist);
 
-      var hardcodeUser = 'nahee';
+  function contactlist() {
+    var directive = {
+        restrict: "E",
+        templateUrl: 'app/components/contact-list/contact-list.html',
+        controller: contactlistController
+    };
+    return directive;
+  }
+   contactlistController.$inject = ['$rootScope', '$scope', 'ContactService', 'Globals', 'MessageService'];
 
+   function contactlistController($rootScope, $scope, ContactService, Globals, MessageService) {
       $scope.contacts = ContactService.contacts;
-
-      $scope.addContact = function (newContactEmail) {
+      $scope.addContact = addContact;
+      $scope.getAllContacts = getAllContacts;
+      $scope.deleteContact = deleteContact;
+      $scope.setSelectedRecipient = setSelectedRecipient;
+      // $scope.tooggle = true;
+      function addContact(newContactEmail) {
         ContactService.createContact(newContactEmail);
-      };
+      }
 
-      $scope.getAllContacts = function() {
+      function getAllContacts() {
         ContactService.getAllContacts();
-      };
+      }
 
-      $scope.deleteContact = function (contact){
+      function deleteContact(contact) {
         ContactService.deleteContact(contact);
-      };
+      }
 
-      $scope.setSelectedRecipient = function (recipient) {
+      function setSelectedRecipient(recipient) {
         Globals.setSelectedRecipient(recipient);
-      };
-    }
-  };
-});
+        markRead(recipient);
+      }
+
+      function markRead(recipient) {
+        if(recipient.unreadCount > 0) {
+          setTimeout(markReadIfFocused, 3000)
+        }
+
+        function markReadIfFocused() {
+          if(recipient === Globals.selections.recipient) {
+            recipient.unreadCount = 0;
+            MessageService.markAllRead(recipient.id)
+          }
+        }
+      }
+   }
+})();

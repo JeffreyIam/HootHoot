@@ -1,0 +1,14 @@
+<div class="contacts">
+  <label> Search Contacts: <input type="text" ng-model="searchContactBox"> </label>
+<!--   <table id="searchContactResults">
+    <tr ng-repeat="friend in friends | filter:searchContacts">
+      <td>{{friend.name}}</td>
+      <td>{{fiend.phone}}</td>
+    </tr> -->
+  </table>
+  <form ng-submit="submit()" ng-controller="ExampleController">
+    Submit Contacts
+    <input type="text" ng-model="contactText" />
+    <input type="submit" id="submitContact" value="Submit" />
+  </form>
+</div>

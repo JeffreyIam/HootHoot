@@ -1,28 +1,35 @@
-angular.module('loginController', ['theApp'])
+(function() {
+  'use strict';
 
-.controller('loginController', ['$scope', '$http', 'auth', '$location','$window', 'socket', function($scope, $http, auth, $location, $window, socket) {
+  angular
+    .module('app.login',['theApp'])
+    .controller('loginController', loginController);
 
-  //$scope.auth = auth;
+  loginController.$inject = ['$scope', '$http', 'auth', '$location','$window', 'SocketService'];
 
-  $scope.auth = auth;
+  function loginController($scope, $http, auth, $location, $window, SocketService) {
+    $scope.auth = auth;
+    $scope.login = login;
 
-  $scope.login = function(email, password) {
-    return $http({
-      method: 'POST',
-      url: '/',
-      data: {email: email, password: password}
-    })
-    .then(function (resp) {
-      if(resp.data.token) {
-        $window.localStorage.setItem('token', resp.data.token);
-        $window.localStorage.setItem('userId', resp.data.id)
-        $scope.id = $window.localStorage.getItem('userId');
-        socket.emit('registered', $scope.id);
-        $location.path('/chat');
-      } else {
-        $location.path('/');
-      }
-    });
-  };
-
-}]);
+    function login(email, password) {
+      return $http({
+        method: 'POST',
+        url: '/',
+        data: {email: email, password: password}
+      })
+      .then(function (resp) {
+        if(resp.data.token) {
+          $window.sessionStorage.setItem('token', resp.data.token);
+          $window.localStorage.setItem('token', resp.data.token);
+          $window.localStorage.setItem('userId', resp.data.id)
+          $window.localStorage.setItem('email', resp.data.email);
+          $scope.id = $window.localStorage.getItem('userId');
+          SocketService.register();
+          $location.path('/chat');
+        } else {
+          $location.path('/');
+        }
+      });
+    }
+  }
+})();

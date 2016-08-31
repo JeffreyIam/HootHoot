@@ -1,3 +1,7 @@
 node_modules/
-
 .floo
+client/compiled
+server/config/keys.js
+npm-debug.log
+.DS_Store
+/*.env

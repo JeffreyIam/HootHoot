@@ -1,19 +1,25 @@
-<div class="group-list">
-  <button ng-click="showGroup()">Groups</button>
-    <div ng-show="click">
-      <input type="text" ng-model="addGroupNames" placeholder="Group Name">
-      <br>
-      <div>
-        {{addGroupNames}}
-        {{groupFriends}}
-        <button ng-click="sendGroup()">Create</button>
-      </div>
-      <input type="text" ng-model="searchContactsBox" placeholder="Search your contacts">
-      <br>
-      <br>
-      <div class="groupFriends" ng-init="findContacts()" ng-repeat="searchGroupFriend in searchGroupFriends | filter:searchContactsBox | orderBy: 'isActive'">
-      <groupsingle name="{{searchGroupFriend.name}}" status="{{searchGroupFriend.isActive}}" channel="{{searchGroupFriend.channel}}"></groupsingle>
-        <button ng-click="createGroup(searchGroupFriend.name)">Add</button>
-      </div>
+<div class="group-list" ng-init="getAllGroups()">
+  <br>
+  <form ng-submit="addGroup(newGroup)">
+    <input type="text" ng-model="newGroup" placeholder="Add a group" />
+    <input type="submit" value="Add" />
+  </form>
+  <hr>
+  <input type="text" ng-model="searchBox" placeholder="Search your groups">
+  <br>
+  <br>
+  <div class="groups" ng-repeat="group in groups | filter:searchBox | orderBy: 'isActive'">
+
     <div>
+    <span><userpic /></span>
+    <span>
+      <groupsingle name="{{group.name}}" isactive="{{+contact.isActive}}" ng-click="setSelectedRecipient(group)"></groupsingle>
+      <button class="deleteGroup" ng-click="deleteGroup(group.id)">Delete</button>
+    </span>
+    </div>
+    <br>
+
+  </div>
 </div>
+
+

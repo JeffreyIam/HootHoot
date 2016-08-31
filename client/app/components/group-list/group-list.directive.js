@@ -1,27 +1,37 @@
-angular.module('grouplistdirective', ['theApp']).directive('grouplist', function() {
-  return {
-    restrict: "E",
-    templateUrl: 'app/components/group-list/group-list.html',
-    controller: function($rootScope, $scope, GroupService) {
-      var hardcodeUser = 'nahee';
-      $scope.click = false;
-      $scope.groupFriends = [];
-      $scope.searchGroupFriends = GroupService.searchGroupFriends;
-      $scope.showGroup = function () {
-        $scope.click = true;
+(function() {
+  'use strict';
+
+  angular
+    .module('grouplistdirective', ['theApp'])
+    .directive('grouplist', grouplist);
+
+    function grouplist() {
+      var directive = {
+        restrict: "E",
+        templateUrl: 'app/components/group-list/group-list.html',
+        controller: grouplistController
       };
-      $scope.sendGroup = function () {
-        GroupService.sendGroup($scope.addGroupNames, $scope.groupFriends);
-      };
-      $scope.createGroup = function (name) {
-        $scope.groupFriends.push(name);
-      };
-      $scope.findContacts = function() {
-        GroupService.findContacts();
-      };
-      $scope.AddContact = function (){
-        GroupService.AddContact();
-      };
+      return directive;
     }
-  };
-});
+  grouplistController.$inject = ['$rootScope', '$scope', 'GroupService'];
+
+  function grouplistController($rootScope, $scope, GroupService) {
+    $scope.sendGroup = sendGroup;
+    $scope.createGroup = createGroup;
+    $scope.findContacts = findContacts;
+    $scope.AddContact = addContact;
+
+    function sendGroup() {
+      GroupService.sendGroup($scope.addGroupNames, $scope.groupFriends);
+    };
+    function createGroup() {
+      $scope.groupFriends.push(name);
+    };
+    function findContacts(name) {
+      GroupService.findContacts();
+    };
+    function AddContact() {
+      GroupService.AddContact();
+    }
+  }
+})();

@@ -1,44 +1,50 @@
-angular.module('chatlistdirective', ['theApp']).directive('chatlist', function() {
-  return {
-    restrict: "E",
-    replace: true,
-    templateUrl: 'app/components/chat-list/chat-list.html',
+(function() {
+  'use strict';
 
-    link: function(scope, element, attrs, ctrl) {
-      var element = angular.element(element);
-      var init = function() {};
-      init();
-    },
+  angular
+    .module('chatlistdirective', ['theApp', 'luegg.directives'])
+    .directive('chatlist', chatlist);
 
-    controller: function($scope, MessageService, socket, Globals) {
-      $scope.scrollToBottom = function() {
-        var uuidLastChat = _.last($scope.chats).uuid;
-        $anchorScroll(uuidLastChat);
-      };
+  function chatlist() {
+    var directive = {
+      restrict: "E",
+      replace: true,
+      templateUrl: 'app/components/chat-list/chat-list.html',
+      scope: {
+        list: '=chatlist'
+      },
+      controller: chatlistController
+    };
 
-      $scope.listDidRender = function() {
-        $scope.scrollToBottom();
-      };
+    return directive;
+  }
 
-      $scope.chats = MessageService.chats;
+  chatlistController.$inject = ['$scope', '$timeout', '$rootScope', 'MessageService', 'Globals'];
 
-      $scope.selections = Globals.selections;
+  function chatlistController ($scope, $timeout, $rootScope, MessageService, Globals) {
+    $scope.chats = [];
+    $scope.selections = Globals.selections;
 
-      $scope.getRecentMessages = function () {
-        MessageService.getRecentMessages();
-      }
+    $scope.getRecentMessages = getRecentMessages;
+    $scope.filterById = filterById
 
-      $scope.filterById = function (message) {
-        if (Globals.selections.recipient) {
-          var recipient = Globals.selections.recipient.id;
+    $scope.$watch(function() { return MessageService.chats; }, function(val) {
+      $scope.chats = val;
+    }, true);
 
-          return message.recipientId === recipient || message.senderId === recipient;
-        }
-      }
+    $rootScope.$on('get message', function(e, message) { MessageService.addMessageToList(message) });
 
-      socket.on('get message', function () {
-        $scope.$apply();
-      })
+    function getRecentMessages() {
+      MessageService.getRecentMessages();
     }
-  };
-});
+
+
+    function filterById(message) {
+      if (Globals.selections.recipient) {
+        var recipient = Globals.selections.recipient.id;
+
+        return message.recipientId === recipient || message.senderId === recipient;
+      }
+    }
+  }
+})();

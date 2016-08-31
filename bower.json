@@ -1,0 +1,23 @@
+{
+  "name": "hoothoot",
+  "description": "the messaging client to connect all messaging clients",
+  "main": "index.js",
+  "authors": [
+    "Forrest",
+    "Chris",
+    "Nahee",
+    "Jeff"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/BScookies/HootHoot",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "^2.0.2"
+  }
+}

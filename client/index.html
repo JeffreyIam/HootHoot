@@ -8,12 +8,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Style Sheet -->
-     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="css/queries.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
     <link href="//cdn.muicss.com/mui-0.6.8/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="//cdn.muicss.com/mui-0.6.8/angular/mui-angular.min.js"></script>
-
     <!-- Auth0's lock widget library -->
     <script type="text/javascript" src="https://cdn.auth0.com/js/lock-9.min.js"></script>
     <!-- AngularJS core -->
@@ -28,29 +30,57 @@
     <script src="https://cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js" type="text/javascript"> </script>
     <!-- Angular wrapper library for JWT-->
     <script src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js" type="text/javascript"> </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+
+    <script src="https://cdn.rawgit.com/monkeecreate/jquery.simpleWeather/master/jquery.simpleWeather.min.js"> </script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+
+
     <!-- Your app files -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="login/loginController.js" type="text/javascript"></script>
+    <script src="logout/logoutController.js" type="text/javascript"></script>
     <script src="signup/signupController.js" type="text/javascript"></script>
+    <script src="profile/profileController.js" type="text/javascript"></script>
     <script src="app/components/chat-form/chat-form.directive.js" type="text/javascript"></script>
     <script src="app/components/chat-list/chat-list.directive.js" type="text/javascript"></script>
     <script src="app/components/chat-single/chat-single.directive.js" type="text/javascript"></script>
     <script src="app/components/contact-list/contact-list.directive.js" type="text/javascript"></script>
     <script src="app/components/contact-single/contact-single.directive.js" type="text/javascript"></script>
-    <script src="app/components/group-list/group-list.directive.js" type="text/javascript"></script>
-    <script src="app/components/group-single/group-single.directive.js" type="text/javascript"></script>
+    <script src="app/components/commands/commandController.js" type="text/javascript"></script>
+    <script src="app/services/services.module.js" type="text/javascript"></script>
     <script src="app/shared/user-pic.directive.js" type="text/javascript"></script>
-    <script src="app/services/services.js" type="text/javascript"></script>
+    <script src="app/services/services.globals.js" type="text/javascript"></script>
+    <script src="app/services/services.dataService.js" type="text/javascript"></script>
+    <script src="app/services/services.commandService.js" type="text/javascript"></script>
+    <script src="app/services/services.dataService.js" type="text/javascript"></script>
+    <script src="app/services/services.messageService.js" type="text/javascript"></script>
+    <script src="app/services/services.contactService.js" type="text/javascript"></script>
+    <script src="app/services/services.socketService.js" type="text/javascript"></script>
+    <script src="app/views/chatController.js" type="text/javascript"></script>
     <script src="app/app.js"></script>
+    <script src="app/app.config.js"></script>
+    <script src="app/app.chatBox.js"></script>
+    <script src="app/app.run.js"></script>
+    <script src="app/app.contacts.js"></script>
+    <script src="lib/scrollglue.js"></script>
+    <script src="lib/ui-bootstrap-tpls-2.0.2.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   </head>
-  <body ng-controller="mainCtrl">
-    <div class="mui-appbar mui--appbar-line-height">
-        <div class="mui--text-display2 logo" style="font-color: white">Hoot</div>
-        <div class="mui-container nav">
-            <a href="#/" class="mui-btn">Home</a>
-            <a href="#/chat" class="mui-btn">Chat</a>
-            <button class="mui-btn" ng-click="logout()">Log Out</button>
+  <body onLoad="window.scroll(0, 150)" ng-controller="logoutController">
+    <div class="mui-appbar mui--appbar-line-height navbar-static-top">
+        <div class="collapse navbar-collapse"  ng-class="{'in':!navCollapsed}" >
+            <div class="mui-btn" style="float:left; position:absolute; top: 7px"><img src="/app/images/oneOwl.png" class="owl-logo">HOOT</div>
+                <li uib-dropdown style="position:absolute; right: 40px">
+                    <a href="#" uib-dropdown-toggle>Your Account<b class="caret"></b></a>
+                    <ul uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                        <li role="menuitem"><a href="#/chat">Chat</a></li>
+                        <li role="menuitem"><a href="#/profile">Profile</a></li>
+                        <li role="menuitem" ng-click="logout()"><a href="#/">Log Out</a></li>
+                    </ul>
+                </li>
+            </div>
         </div>
     </div>
     <div ng-view> </div>

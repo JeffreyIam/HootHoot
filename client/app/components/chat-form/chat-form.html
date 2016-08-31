@@ -1,9 +1,19 @@
-<div class="chat-form">
-  <form ng-submit="sendMessage()" class="mui-container">
-    <div>
-      <input ng-model="messageText" type="text" placeholder="Type your message" required>
-      <input type="submit">
-
+<div class="chat-form" ng-init="getCommands()">
+  <div>
+  <form class="form-inline" ng-submit="sendMessage()" style="width:100%">
+    <span ng-if="selections.recipient.typing === 'STARTED'">{{ selections.recipient.firstname }} is typing...</span>
+    <div class="form-group">
+      <span><img ng-if="isChrome" ng-click="startTalking()" src="//i.imgur.com/cHidSVu.gif" style="width:35px; height:35px"/></span>
+      <input id="chatForm" style="width:350px" class="form-control" ng-model="messageText" type="text" placeholder="Send a hoot!" uib-typeahead="command.name for command in matchCommand($viewValue)" typeahead-on-select="onSelect($item)" typeahead-select-on-exact="true" ng-keypress="startTyping()" required>
+      <!-- <span><button style="" type="submit" class="btn btn-default">+</button></span> -->
     </div>
   </form>
+  <form class="foorm form-inline" enctype="multipart/form-data" ng-submit="getMedia()">
+    <div class="form-group">
+      <input type="file" name="displayImage" class="form-control">
+      <span><button style="" type="submit" class="btn btn-default">Send file</button></span>
+      <!-- <input type="submit"> -->
+    </div>
+  </form>
+  </div>
 </div>

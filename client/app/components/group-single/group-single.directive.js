@@ -1,11 +1,19 @@
-angular.module('groupsingledirective', ['theApp']).directive('groupsingle', function(GroupService) {
-  return {
-    restrict: "E",
-    templateUrl: 'app/components/group-single/group-single.html',
-    scope: {
-      name: '@',
-      channel: '@',
-      status: '@'
+(function() {
+  'use strict';
+
+  angular
+    .module('groupsingledirective', ['theApp'])
+    .directive('groupsingle', groupsingle);
+
+    function groupsingle() {
+      var directive = {
+        restrict: "E",
+        templateUrl: 'app/components/group-single/group-single.html',
+        scope: {
+          name: '@',
+          channel: '@',
+          status: '@'
+        }
+      }
     }
-  };
-});
+})();

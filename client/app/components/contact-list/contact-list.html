@@ -1,16 +1,33 @@
 <div class="contact-list" ng-init="getAllContacts()">
-  <br>
-  <form ng-submit="addContact(newContact)">
-    <input type="text" ng-model="newContact" placeholder="Add a contact" />
-    <input type="submit" value="Add"/>
-  </form>
-  <hr>
-  <input type="text" ng-model="searchBox" placeholder="Search your contacts">
-  <br>
-  <br>
-  <div class="contacts" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'">
-    <contactsingle name="{{contact.firstname}} {{contact.lastname}}" status="{{contact.isActive}}" ng-click="setSelectedRecipient(contact)"></contactsingle>
-    <button ng-click="deleteContact(contact.id)">Delete</button>
-  </div>
+  <div class="row">
+    <span style="float:left;" class="btn-group" uib-dropdown is-open="status.isopen">
+      <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+        Contacts <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" ng-class="{show:tooggle}" uib-dropdown-menu role="menu" aria-labelledby="single-button">
 
+        <input type="text" class="form-control" ng-model="searchBox" ng-click="$event.stopPropagation()" placeholder="Press tab and search your contacts">
+        <li class="divider"></li>
+        <li style="width:300px;" role="menuitem" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'" ng-click="setSelectedRecipient(contact)">
+          <a style="cursor: pointer">
+            <span><userpic /></span>
+            <contactsingle name="{{contact.firstname}} {{contact.lastname}}" isactive="{{+contact.isActive}}" unread="{{contact.unreadCount}}"></contactsingle>
+            <button type="button" class="deleteContact btn btn-danger" ng-click="deleteContact(contact.id)">Delete</button>
+          </a>
+        </li>
+
+      </ul>
+
+    </span>
+
+    <span style="float:left;">
+      <form class="form-inline" ng-submit="addContact(newContact)">
+        <div class="form-group">
+          <input style="float:left" type="text" class="form-control" ng-model="newContact" placeholder="Add a contact" />
+          <button style="float:left;" type="submit" class="btn btn-default">+</button>
+        </div>
+      </form>
+    </span>
+
+   </div>
 </div>
