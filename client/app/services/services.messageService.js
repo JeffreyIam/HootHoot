@@ -150,7 +150,7 @@
           }
         },
         '[:iframe:]': {
-          open: '<iframe width="640" height="360" src="',
+          open: '<iframe width="480" height="360" src="',
           close: '" frameborder="0" allowfullscreen></iframe>'
         },
         '[:uber:]': {
