@@ -152,11 +152,12 @@
         '[:iframe:]': {
           open: '<iframe width="480" height="360" src="',
           close: '" frameborder="0" allowfullscreen></iframe>'
-        },
-        '[:uber:]': {
-          open: '<a href="$val">',
-          close: '</a>'
         }
+        // ,
+        // '[:uber:]': {
+        //   open: '<a href="$val">',
+        //   close: '</a>'
+        // }
       }
       return text.replace(/[<>]/g, escape)
         .replace(/(\[:.*:\])(.*)(\1)/g, interpretMarkup);
