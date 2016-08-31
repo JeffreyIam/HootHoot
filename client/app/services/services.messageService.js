@@ -66,7 +66,7 @@
       };
 
       var flag = false;
-
+      //whiteboard
       if(message.body.indexOf('/wb') >= 0) {
         var query = message.body.split("/wb ")[1];
         if(query.slice(0,4) === ('http')) {
@@ -74,7 +74,7 @@
         } else {
           message.body = "[:frame:]https://" + query + "[:frame:]";
         }
-      }
+      }  //browsing websites
       else if(message.body.indexOf('/browse') >= 0) {
         var query = message.body.split("/browse ")[1];
         if(query.slice(0,4) === ('http')) {
@@ -82,7 +82,7 @@
         } else {
           message.body = "[:frame:]https://" + query + "[:frame:]";
         }
-      }
+      } //webcam
       else if(message.body.indexOf('/webcam') >= 0) {
         var room = message.body.split(" ")[1];
         message.body = "[:webcam:]https://appear.in/" + room + "[:webcam:]";

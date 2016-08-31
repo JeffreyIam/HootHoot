@@ -10,7 +10,8 @@
       selections: {},
       setSelectedRecipient: setSelectedRecipient,
       webcam: false,
-      camroom: ""
+      camroom: "https://appear.in/" + Math.random().toString().slice(2,7),
+      location: ""
     }
 
     return service;

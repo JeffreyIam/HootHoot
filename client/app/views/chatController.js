@@ -10,7 +10,6 @@
   function chatController($scope, Globals, $sce) {
     $scope.$watch(function() { return Globals.webcam; }, function(val) {
       $scope.webcam = Globals.webcam;
-      console.log('getting here');
     }, true);
 
     $scope.$watch(function() { return Globals.camroom; }, function(val) {
@@ -19,7 +18,7 @@
 
 
     $scope.$watch(function() { return Globals.selections.frame; }, function(val) {
-      $scope.frame = $sce.trustAsResourceUrl(Globals.selections.frame);
+      $scope.frame = $sce.trustAsResourceUrl(Globals.selections.frame) || '../../info.html';
     }, true);
   }
 })();
