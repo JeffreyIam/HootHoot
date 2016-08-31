@@ -44,34 +44,31 @@ exports.newConnection =  function (socket) {
 
         return message;
       })
-      .then(function (message) {
+      // .then(function (message) {
+      //   request.get({ url: 'https://api.wit.ai/message', qs: { v: '20160810', q: message.body },
+      //     auth: { bearer: accessToken } }, function (err, resp) {
+      //       var entities = JSON.parse(resp.body).entities;
 
-        //slight fix to make "Get a ride" not display whenever any location displays during chat
+      //       if (entities.location) {
+      //         var loc = entities.location.reduce((loc, piece) => loc === '' ? loc + piece.value : loc + ` ${piece.value}`, '');
 
-        // request.get({ url: 'https://api.wit.ai/message', qs: { v: '20160810', q: message.body },
-        //   auth: { bearer: accessToken } }, function (err, resp) {
-        //     var entities = JSON.parse(resp.body).entities;
+      //         loc = `https://m.uber.com/ul?client_id=xvr7xvjsRimtJsq6Xl_MJ4vJK-lwZsK1&action=setPickup&pickup=my_location&dropoff=${encodeURI(loc)}`
 
-        //     if (entities.location) {
-        //       var loc = entities.location.reduce((loc, piece) => loc === '' ? loc + piece.value : loc + ` ${piece.value}`, '');
+      //         message.body = '[:uber:]' + loc + '[:uber:]';
 
-        //       loc = `https://m.uber.com/ul?client_id=xvr7xvjsRimtJsq6Xl_MJ4vJK-lwZsK1&action=setPickup&pickup=my_location&dropoff=${encodeURI(loc)}`
-
-        //       message.body = '[:uber:]' + loc + '[:uber:]';
-
-              if (recipientType === 'G') {
-                server.io.to(recipient).emit('get message', message);
-              } else if (recipientType === 'U') {
-                connectedUsers[sender].emit('get message', message);
-                if (isConnected(recipient)) {
-                  connectedUsers[recipient].emit('get message', message);
-                }
-              }
-            });
-          // }
+      //         if (recipientType === 'G') {
+      //           server.io.to(recipient).emit('get message', message);
+      //         } else if (recipientType === 'U') {
+      //           connectedUsers[sender].emit('get message', message);
+      //           if (isConnected(recipient)) {
+      //             connectedUsers[recipient].emit('get message', message);
+      //           }
+      //         }
+      //       }
+      //     }
       //   );
-      });
-  // });
+      // });
+  });
 
   socket.on('create group', function (group) {
     group.push(socket.userId);
