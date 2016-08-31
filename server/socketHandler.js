@@ -46,16 +46,16 @@ exports.newConnection =  function (socket) {
       })
       .then(function (message) {
 
-        request.get({ url: 'https://api.wit.ai/message', qs: { v: '20160810', q: message.body },
-          auth: { bearer: accessToken } }, function (err, resp) {
-            var entities = JSON.parse(resp.body).entities;
+        // request.get({ url: 'https://api.wit.ai/message', qs: { v: '20160810', q: message.body },
+        //   auth: { bearer: accessToken } }, function (err, resp) {
+        //     var entities = JSON.parse(resp.body).entities;
 
-            if (entities.location) {
-              var loc = entities.location.reduce((loc, piece) => loc === '' ? loc + piece.value : loc + ` ${piece.value}`, '');
+        //     if (entities.location) {
+        //       var loc = entities.location.reduce((loc, piece) => loc === '' ? loc + piece.value : loc + ` ${piece.value}`, '');
 
-              loc = `https://m.uber.com/ul?client_id=xvr7xvjsRimtJsq6Xl_MJ4vJK-lwZsK1&action=setPickup&pickup=my_location&dropoff=${encodeURI(loc)}`
+        //       loc = `https://m.uber.com/ul?client_id=xvr7xvjsRimtJsq6Xl_MJ4vJK-lwZsK1&action=setPickup&pickup=my_location&dropoff=${encodeURI(loc)}`
 
-              message.body = '[:uber:]' + loc + '[:uber:]';
+        //       message.body = '[:uber:]' + loc + '[:uber:]';
 
               if (recipientType === 'G') {
                 server.io.to(recipient).emit('get message', message);
@@ -65,11 +65,11 @@ exports.newConnection =  function (socket) {
                   connectedUsers[recipient].emit('get message', message);
                 }
               }
-            }
-          }
-        );
-      });
-  });
+            });
+      //     }
+      //   );
+      // });
+  // });
 
   socket.on('create group', function (group) {
     group.push(socket.userId);

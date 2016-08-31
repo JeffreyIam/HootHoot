@@ -179,7 +179,6 @@
 
         // var processed = tag.close ? foundTag === '[:uber:]' ? tag.open + 'Get a Ride' + tag.close : tag.open + content + tag.close : tag.open + content;
         var processed = tag.close ? tag.open + content + tag.close : tag.open + content;
-
         return processed.replace('$val', content);
       }
     }
