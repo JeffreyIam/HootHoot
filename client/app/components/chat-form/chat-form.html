@@ -4,7 +4,7 @@
     <span ng-if="selections.recipient.typing === 'STARTED'">{{ selections.recipient.firstname }} is typing...</span>
     <div class="form-group">
       <span><img ng-if="isChrome" ng-click="startTalking()" src="//i.imgur.com/cHidSVu.gif" style="width:35px; height:35px"/></span>
-      <input style="width:350px" class="form-control" ng-model="messageText" type="text" placeholder="Send a hoot!" uib-typeahead="command.name for command in matchCommand($viewValue)" typeahead-on-select="onSelect($item)" typeahead-select-on-exact="true" ng-keypress="startTyping()" required>
+      <input id="chatForm" style="width:350px" class="form-control" ng-model="messageText" type="text" placeholder="Send a hoot!" uib-typeahead="command.name for command in matchCommand($viewValue)" typeahead-on-select="onSelect($item)" typeahead-select-on-exact="true" ng-keypress="startTyping()" required>
       <!-- <span><button style="" type="submit" class="btn btn-default">+</button></span> -->
     </div>
   </form>
